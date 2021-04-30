@@ -4,7 +4,7 @@
  * @param content 字符串
  * @returns boolean
  */
-function isEmpty(content: string) {
+function isEmpty(content: any) {
   if (!content || content === '') {
     return true;
   }
