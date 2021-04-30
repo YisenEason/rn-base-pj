@@ -5,46 +5,67 @@
 
 import axios from 'axios';
 import qs from 'querystring';
+import { Alert } from 'react-native';
+import BaseResp from '../../dto/BaseResp';
 import { isEmpty } from '../utils/StringUtils';
 
-const HOST = 'http://10.153.153.200:8081';
-const BASE_API = '/gfunStore/api';
+const HOST = '';
+const BASE_API = '';
 
-axios.defaults.baseURL = HOST + BASE_API;
-axios.defaults.timeout = 10000;
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.headers.post['Accept'] = 'application/json';
+const service = axios.create({
+  baseURL: HOST + BASE_API,
+  timeout: 5000
+})
 
 /**
  * 请求拦截
  */
-axios.interceptors.request.use(
+service.interceptors.request.use(
   config => {
+    config.headers.post['Content-Type'] = 'application/json';
+    config.headers.post['Accept'] = 'application/json';
     config.headers.Authorization = '';
     return config;
   }
 );
 
 // 响应拦截
-axios.interceptors.response.use(
+service.interceptors.response.use(
   response => {
-    console.log(`http(${response.config.url}) response:  ${JSON.stringify(response.data)}`);
-    
-    if (response.data['code'] !== 200) {
-      return Promise.reject(response);
+    let res = response.data;
+    switch (res.code) {
+      case '200':{
+        return Promise.resolve(res);
+      }
+      case -1:{
+      }
+      default:
+        setTimeout(() => {
+          Alert.alert(res.msg);
+        }, 300);
+        break;
     }
-    return Promise.resolve(response);
+    return Promise.reject(res);
   }, 
-  error => {
-    if (error.response.status) {
-      switch (error.response.status) {
+  error => {        
+    let msg;
+    if (error.response) {
+      const res = error.response.data
+      switch (res.status) {
         case 401:
         case 404:
         case 500:
         default:
       }
-      // return Promise.reject(error.response);
+    } else if (error.message.includes('timeout')) {
+      msg = '请求超时，请检查网络连接!';
     }
+    let errResp: BaseResp = {
+      code: 500,
+      msg: msg === undefined ? '系统出了点问题' : msg,
+      data: null
+    }
+    return Promise.reject(errResp);
   }
 );
 
@@ -64,12 +85,14 @@ let Network = {
         let paramString = qs.stringify(params);
         url += isEmpty(paramString) ? '' : `?${paramString}`;
       }
-      axios.post(url, body)
+      service.post(url, body)
       .then(res => {
-        resolve(res.data);
+        console.log(`请求接口: ${url}, body: ${JSON.stringify(body)}, \n返回: ${JSON.stringify(res)}`);
+        resolve(res);
       })
-      .catch(err => {
-        reject(err.data)
+      .catch(err => { 
+        console.log(`请求接口: ${url}, \n返回: ${JSON.stringify(err)}`);       
+        reject(err)
       })
     });
   },
@@ -82,14 +105,16 @@ let Network = {
    */
   get: (url: string, params: any) => {
     return new Promise((resolve, reject) => {
-      axios.get(url, {
+      service.get(url, {
         params: params
       })
       .then(res => {
-        resolve(res.data);
+        console.log(`请求接口: ${url}, \n返回: ${JSON.stringify(res)}`);
+        resolve(res);
       })
       .catch(err => {
-        reject(err.data)
+        console.log(`请求接口: ${url}, \n返回: ${JSON.stringify(err)}`);       
+        reject(err)
       })
     });
   }
