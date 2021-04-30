@@ -26,6 +26,7 @@ export default class FirstPage extends BasePage<{}> {
             Network.post(`/data/ageRange`, {}, {})
               .then((e) => {
                 console.log(' == ' + e);
+                Actions.pop();
               })
               .catch((e) => {
                 console.log(e);
