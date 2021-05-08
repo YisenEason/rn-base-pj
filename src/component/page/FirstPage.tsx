@@ -23,15 +23,8 @@ export default class FirstPage extends BasePage<{}> {
         <SafeAreaView>
           <Button title="network post" onPress={() => {
             Actions.LoadingModal();
-<<<<<<< HEAD
             Network.post(`https://api.muxiaoguo.cn/api/tianqi?city=长沙&type=1`, {}, {})
               .then((e) => {  
-=======
-            Network.post(`/data/ageRange`, {}, {})
-              .then((e) => {
-                console.log(' == ' + e);
-                Actions.pop();
->>>>>>> b031c9a01e776b1ae19430423b7e3a482de4c882
               })
               .catch((e) => {
 
