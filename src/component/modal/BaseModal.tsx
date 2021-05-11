@@ -26,7 +26,7 @@ const BaseModal: React.FC<Props> = ({children}) => {
   // })
 
   return (
-    <Modal transparent={true} animationType='fade' statusBarTranslucent>
+    <Modal transparent={true} animationType='none' statusBarTranslucent>
         <View style={styles.container}>
           {children}
         </View>

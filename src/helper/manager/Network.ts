@@ -7,7 +7,7 @@ import axios from 'axios';
 import qs from 'querystring';
 import { Alert } from 'react-native';
 import BaseResp from '../../dto/BaseResp';
-import { isEmpty } from '../utils/StringUtils';
+import { isEmpty } from '../utils/StringUtil';
 
 const HOST = '';
 const BASE_API = '';
@@ -34,20 +34,18 @@ service.interceptors.response.use(
   response => {
     let res = response.data;
     switch (res.code) {
-      case '200':{
+      case 200:{
         return Promise.resolve(res);
       }
       case -1:{
       }
       default:
-        setTimeout(() => {
-          Alert.alert(res.msg);
-        }, 300);
+        Alert.alert(res.msg);
         break;
     }
     return Promise.reject(res);
   }, 
-  error => {        
+  error => {            
     let msg;
     if (error.response) {
       const res = error.response.data
@@ -81,9 +79,8 @@ let Network = {
    */
   post: (url: string, params: any, body: any) => {
     return new Promise((resolve, reject) => {
-      if (params) {
-        let paramString = qs.stringify(params);
-        url += isEmpty(paramString) ? '' : `?${paramString}`;
+      if (params && Object.keys(params).length > 0) {
+        url += `?${qs.stringify(params)}`;
       }
       service.post(url, body)
       .then(res => {
@@ -109,11 +106,11 @@ let Network = {
         params: params
       })
       .then(res => {
-        console.log(`请求接口: ${url}, \n返回: ${JSON.stringify(res)}`);
+        console.log(`请求接口: ${url}?${qs.stringify(params)}, \n返回: ${JSON.stringify(res)}`);
         resolve(res);
       })
       .catch(err => {
-        console.log(`请求接口: ${url}, \n返回: ${JSON.stringify(err)}`);       
+        console.log(`请求接口: ${url}?${qs.stringify(params)}, \n返回: ${JSON.stringify(err)}`);       
         reject(err)
       })
     });

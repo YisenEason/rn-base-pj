@@ -5,7 +5,7 @@
  * @returns boolean
  */
 function isEmpty(content: any) {
-  if (!content || content === '') {
+  if (content === undefined || content === '') {
     return true;
   }
   return false;

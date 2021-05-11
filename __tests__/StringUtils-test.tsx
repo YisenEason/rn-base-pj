@@ -1,4 +1,4 @@
-import { isEmpty } from '../src/helper/utils/StringUtils';
+import { isEmpty } from '../src/helper/utils/StringUtil';
 
 test('isEmpty', ()=>{
   expect(isEmpty('')).toBe(true);
