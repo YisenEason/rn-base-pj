@@ -4,3 +4,4 @@ node_modules
 /ios/Pods
 /android/app/build
 .idea
+/android/.gradle

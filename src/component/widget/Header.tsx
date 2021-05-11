@@ -28,8 +28,8 @@ const Header: React.FC<Props> = (props) => {
 
   useEffect(()=>{
     if (Platform.OS === 'android') {
-      // const statusBarHeight = StatusBar.currentHeight;
-      // setStatusH(statusBarHeight || 20)
+      const statusBarHeight = StatusBar.currentHeight;
+      setStatusH(statusBarHeight || 20)
     }else {
       const { StatusBarManager } = NativeModules;
       StatusBarManager.getHeight((status:any) => {
