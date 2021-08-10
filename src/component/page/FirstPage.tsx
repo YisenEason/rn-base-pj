@@ -2,14 +2,13 @@ import React from "react";
 import { Alert, Button, InteractionManager, Text, View } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Network from "../../helper/manager/Network";
+import Network from "../../helper/utils/Network";
 import ModalUtil from "../../helper/utils/ModalUtil";
 import Header from "../widget/Header";
-import BasePage, { BasePageState } from "./BasePage";
 
-export default class FirstPage extends BasePage<{}> {
+export default class FirstPage extends React.Component {
 
-  state: BasePageState = {}
+  state = {}
 
   render() {
     return (

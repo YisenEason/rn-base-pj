@@ -41,7 +41,7 @@ const Header: React.FC<Props> = (props) => {
   let leftView = (
     <TouchableOpacity style={styles.left_container}>
       <Icon style={{ marginRight: 2 }}
-        name={props.leftIcon ? props.leftIcon : ''}
+        name={props.leftIcon ? props.leftIcon : 'arrow-back-outline'}
         size={24}
         color={Color._22254c}
       />
@@ -58,7 +58,7 @@ const Header: React.FC<Props> = (props) => {
   let rightView = (
     <TouchableOpacity style={styles.right_container}>
       <Icon style={{ marginRight: 2 }}
-        name={props.rightIcon ? props.rightIcon : ''}
+        name={props.rightIcon ? props.rightIcon : 'hand-right-outline'}
         size={24}
         color={Color._22254c}
       />
@@ -69,7 +69,6 @@ const Header: React.FC<Props> = (props) => {
   let navBgColor = Color.default_backgroundColor;
     
   return (
-    
     <View style={[{backgroundColor: navBgColor}, {...props.style}]}>
       <View style={{height: statusH, width:width}}>
         <StatusBar barStyle={props.barStyle} translucent backgroundColor="transparent"/>

@@ -5,12 +5,13 @@
 
 import axios from 'axios';
 import qs from 'querystring';
-import { Alert } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import BaseResp from '../../dto/BaseResp';
-import { isEmpty } from '../utils/StringUtil';
 
 const HOST = '';
 const BASE_API = '';
+
+const os = Platform.OS;
 
 const service = axios.create({
   baseURL: HOST + BASE_API,
@@ -25,6 +26,7 @@ service.interceptors.request.use(
     config.headers.post['Content-Type'] = 'application/json';
     config.headers.post['Accept'] = 'application/json';
     config.headers.Authorization = '';
+    config.headers.os = os;
     return config;
   }
 );

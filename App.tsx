@@ -9,12 +9,16 @@
  */
 
 import React from 'react';
+import { Provider } from 'react-redux';
+import { store } from './src/redux/Store';
 import RouterPage from './src/RouterPage';
 
 export default class App extends React.Component {
   render () {
     return (
-      <RouterPage />
+      <Provider store={store}>
+        <RouterPage />
+      </Provider>
     );
   }
 }
