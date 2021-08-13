@@ -1,8 +1,8 @@
 import { Alert } from "react-native";
-import { Actions } from "react-native-router-flux";
+import { rootNavRef } from "../../router/RouterComp";
 
 function loadingModal(msg?: string) {
-  Actions.LoadingModal({title: msg});
+  rootNavRef?.navigate('LoadingModal');
 }
 
 function showConfirmModal(title: string, msg: string, comfirmHandle: ()=>void) {

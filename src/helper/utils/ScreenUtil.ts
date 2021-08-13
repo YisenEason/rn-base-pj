@@ -29,5 +29,7 @@ const getHeightByScale = (width: number, scale: number) => {
 }
 
 export {
-  getHeightByScale
+  getHeightByScale,
+  width,
+  height
 }

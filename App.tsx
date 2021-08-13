@@ -11,13 +11,13 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from './src/redux/Store';
-import RouterPage from './src/RouterPage';
+import RouterComp from './src/router/RouterComp';
 
 export default class App extends React.Component {
   render () {
     return (
       <Provider store={store}>
-        <RouterPage />
+        <RouterComp />
       </Provider>
     );
   }

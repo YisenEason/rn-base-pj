@@ -1,6 +1,5 @@
 
 const url = 'ws://10.153.153.73:8001';
-let that: any = null;
 
 export default class WebSocketClient {
 
@@ -19,7 +18,6 @@ export default class WebSocketClient {
   noPongMaxSecond: number = 60;
 
   constructor() {
-    that = this;
   }
 
   /**
